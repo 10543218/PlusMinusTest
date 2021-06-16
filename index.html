@@ -22,6 +22,12 @@
 				visibility: hidden;
 			}
 			
+			.qsNum{
+				display: flex;
+				justify-content: center;
+				margin-top: 10px;
+			}
+			
 			.sec{
 				text-align: center;
 				font-size: 26px;
@@ -53,6 +59,10 @@
 				border-color: #000;
 			}
 			
+			.num{
+				margin: 10px;
+				font-size: 20px;
+			}
 
 			
 			
@@ -64,6 +74,21 @@
 		<div class='mid'><input type="button" id="start" value="按我開始遊戲" class="button"/></div>
 		<div class='sec' id="sec">剩下 60 秒</div>
 		<div class="question" id="qs">? &nbsp+&nbsp ? &nbsp-&nbsp ? = <input type="tel" class="inputAns" id="inputAns"></div>
+		<div class="qsNum">
+			<input class="num" type="button" value="1">
+			<input class="num" type="button" value="2">
+			<input class="num" type="button" value="3">
+			<input class="num" type="button" value="4">
+			<input class="num" type="button" value="5">
+		</div>
+		<div class="qsNum">
+			<input class="num" type="button" value="6">
+			<input class="num" type="button" value="7">
+			<input class="num" type="button" value="8">
+			<input class="num" type="button" value="9">
+			<input class="num" type="button" value="0">
+		</div>
+
 		<div class='submit' id="submit"><input type="button" value="按我提交答案" class="button" /></div>
 		<div class='myPoint' id="myPoint">我的分數: ? 分</div>
 
@@ -79,7 +104,7 @@
 		const qs = document.getElementById('qs');
 		var sec = document.getElementById('sec');
 		var myPoint = document.getElementById('myPoint');
-		<!-- var inputAns = document.getElementById('inputAns'); -->
+		var numArray = document.getElementsByClassName('num');
 		
 		var q1 = 0;
 		var q2 = 0;
@@ -87,6 +112,7 @@
 		var isStart = false;
 		var firstSec = 60;
 		var score = 0;
+		var now = 0;
 		
 		
 		
@@ -138,13 +164,23 @@
 			
 			q1 = getRandomInt(40)+30;
 			q2 = getRandomInt(40)+30;
-			q3 = getRandomInt(30)+20
+			q3 = getRandomInt(30)+20;
 			console.log(q1+","+q2+","+q3);
 			qs.innerHTML = q1+"&nbsp+&nbsp"+q2+"&nbsp-&nbsp"+q3+"&nbsp=&nbsp"+"<input type='tel' class='inputAns' id='inputAns'>";
-			
+			now = 0;
 			
 		},false);
 		
+		for(var i=0; i<10; i++){
+			numArray[i].addEventListener('click',function(e){
+				console.log(this.value); 
+				var inputAns = document.getElementById('inputAns');
+				now = parseInt(now*10 + parseInt(this.value));
+				inputAns.value = now;
+				console.log(inputAns.value);
+				
+			},false);
+		}
 
 		
 		function getRandomInt(max) {
