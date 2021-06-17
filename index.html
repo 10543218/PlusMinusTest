@@ -31,7 +31,7 @@
 			
 			.sec{
 				text-align: center;
-				font-size: 26px;
+				font-size: 24px;
 				margin-top: 10px;
 				visibility: hidden;
 			}
@@ -44,7 +44,7 @@
 			
 			.submit, .restart, .myPoint{
 				text-align: center;
-				font-size: 26px;
+				font-size: 24px;
 				margin-top: 10px;
 				visibility: hidden;
 			}
@@ -65,7 +65,10 @@
 				font-size: 20px;
 			}
 
-			
+			.secPoint{
+				display: flex;
+				justify-content: center;
+			}
 			
 			
 		</style>
@@ -73,7 +76,12 @@
 	<body>
 		<div class='title'>加減法遊戲 作者:小智</div><br>
 		<div class='mid'><input type="button" id="start" value="按我開始遊戲" class="button"/></div>
-		<div class='sec' id="sec">剩下 60 秒</div>
+		<div class="secPoint">
+			<div class='sec' id="sec">剩下 60 秒</div>
+			<div class='myPoint' id="myPoint">我的分數: ? 分</div>
+		</div>
+		
+		
 		<div class="question" id="qs">? &nbsp+&nbsp ? &nbsp-&nbsp ? = <input type="tel" class="inputAns" id="inputAns"></div>
 		<div class="qsNum" id="qsNum1">
 			<input class="num" type="button" value="1">
@@ -91,8 +99,7 @@
 		</div>
 
 		<div class='submit' id="submit"><input type="button" value="按我提交答案" class="button" /></div>
-		<div class='myPoint' id="myPoint">我的分數: ? 分</div>
-
+		
 		
 		
 		
@@ -143,7 +150,7 @@
 			qsNum1.style.visibility="visible";
 			qsNum2.style.visibility="visible";
 			myPoint.style.visibility="visible";
-			myPoint.innerHTML = "我的分數: " + score + " 分";
+			myPoint.innerHTML = "&nbsp&nbsp我的分數: " + score + " 分";
 			
 			var remainSec = setInterval(function() {
 				if(firstSec>0){
@@ -163,7 +170,7 @@
 				bonus++;
 				score+=10 + bonus;
 				firstSec += 2;
-				myPoint.innerHTML = "我的分數: " + score + " 分";
+				myPoint.innerHTML = "&nbsp&nbsp我的分數: " + score + " 分";
 			}else{
 				firstSec -= 3;
 				bonus = -1;
