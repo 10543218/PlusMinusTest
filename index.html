@@ -116,6 +116,7 @@
 		var firstSec = 60;
 		var score = 0;
 		var now = 0;
+		var bonus = -1;
 		
 		
 		
@@ -141,6 +142,8 @@
 			submit.style.visibility="visible";
 			qsNum1.style.visibility="visible";
 			qsNum2.style.visibility="visible";
+			myPoint.style.visibility="visible";
+			myPoint.innerHTML = "我的分數: " + score + " 分";
 			
 			var remainSec = setInterval(function() {
 				if(firstSec>0){
@@ -148,8 +151,6 @@
 					sec.innerHTML = "剩下 " + firstSec + " 秒";
 				}else{
 					clearInterval(remainSec);
-					myPoint.style.visibility="visible";
-					myPoint.innerHTML = "我的分數: " + score + " 分";
 				}
 				
 			}, 1000);
@@ -158,11 +159,18 @@
 		
 		submit.addEventListener('click',function(e){
 			var inputAns = document.getElementById('inputAns');
-			if(q1+q2-q3 == inputAns.value){
-				score+=10;
+			if((q1+q2-q3 == inputAns.value) && firstSec>0){
+				bonus++;
+				score+=10 + bonus;
 				firstSec += 2;
+				myPoint.innerHTML = "我的分數: " + score + " 分";
 			}else{
 				firstSec -= 3;
+				bonus = -1;
+				
+				if(firstSec <= 0){
+					sec.innerHTML = "剩下 0 秒";
+				}
 			}
 			
 			
