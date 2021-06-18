@@ -70,6 +70,10 @@
 				justify-content: center;
 			}
 			
+			.disappear{
+				margin-left: 10px;
+			}
+			
 			
 		</style>
 	</head>
@@ -78,11 +82,15 @@
 		<div class='mid'><input type="button" id="start" value="按我開始遊戲" class="button"/></div>
 		<div class="secPoint">
 			<div class='sec' id="sec">剩下 60 秒</div>
-			<div class='myPoint' id="myPoint">我的分數: ? 分</div>
+			<div class='myPoint' id="myPoint">我的分數: 6666 分</div>
 		</div>
 		
 		
-		<div class="question" id="qs">? &nbsp+&nbsp ? &nbsp-&nbsp ? = <input type="tel" class="inputAns" id="inputAns"></div>
+		<div class="question" id="qs">
+			<div>1 &nbsp+&nbsp 1 &nbsp-&nbsp 2 = </div>
+			<input type="tel" class="inputAns" id="inputAns">
+			<input class="disappear" type="button" value="←">
+		</div>
 		<div class="qsNum" id="qsNum1">
 			<input class="num" type="button" value="1">
 			<input class="num" type="button" value="2">
@@ -120,7 +128,7 @@
 		var q2 = 0;
 		var q3 = 0;
 		var isStart = false;
-		var firstSec = 60;
+		var firstSec = 600;
 		var score = 0;
 		var now = 0;
 		var bonus = -1;
@@ -133,7 +141,7 @@
 			q2 = getRandomInt(40)+30;
 			q3 = getRandomInt(30)+20
 			console.log(q1+","+q2+","+q3); 
-			qs.innerHTML = q1+"&nbsp+&nbsp"+q2+"&nbsp-&nbsp"+q3+"&nbsp=&nbsp"+"<input type='tel' class='inputAns' id='inputAns'>";
+			qs.innerHTML = q1+"&nbsp+&nbsp"+q2+"&nbsp-&nbsp"+q3+"&nbsp=&nbsp"+"<input type='tel' class='inputAns' id='inputAns'><input class='disappear' type='button' value='←'/>";
 			
 			
 			if(isStart == true){
@@ -166,7 +174,14 @@
 				
 			}, 1000);
 			
+			var disappear = document.getElementsByClassName('disappear')[0];
+			disappear.addEventListener('click',function(e){
+				inputAns.value = "";
+				now = 0;
+			},false);
+			
 		},false);
+		
 		
 		submit.addEventListener('click',function(e){
 			var inputAns = document.getElementById('inputAns');
@@ -190,10 +205,21 @@
 			q2 = getRandomInt(40)+30;
 			q3 = getRandomInt(30)+20;
 			console.log(q1+","+q2+","+q3);
-			qs.innerHTML = q1+"&nbsp+&nbsp"+q2+"&nbsp-&nbsp"+q3+"&nbsp=&nbsp"+"<input type='tel' class='inputAns' id='inputAns'>";
+			qs.innerHTML = q1+"&nbsp+&nbsp"+q2+"&nbsp-&nbsp"+q3+"&nbsp=&nbsp"+"<input type='tel' class='inputAns' id='inputAns'><input type='button' value='←' class='disappear' />";
 			now = 0;
 			
+			var dis = document.getElementsByClassName('disappear')[0];
+			console.log(dis);
+			dis.addEventListener('click',function(e){
+				now = 0;
+				var inputAns = document.getElementById('inputAns');
+				inputAns.value = "";
+				
+			},false);
 		},false);
+		
+
+		
 		
 		for(var i=0; i<10; i++){
 			numArray[i].addEventListener('click',function(e){
@@ -202,10 +228,11 @@
 				now = parseInt(now*10 + parseInt(this.value));
 				inputAns.value = now;
 				console.log(inputAns.value);
-				
 			},false);
 		}
-
+		
+		
+		
 		
 		function getRandomInt(max) {
 			return Math.floor(Math.random() * max);
